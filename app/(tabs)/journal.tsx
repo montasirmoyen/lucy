@@ -1,18 +1,23 @@
 import { Colors } from '@/constants/theme';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TextInput } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function JournalScreen() {
+export default function AchievementsScreen() {
+  const [journalEntry, setJournalEntry] = useState('');
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Dream Journal</Text>
-        <View style={styles.placeholderContainer}>
-          <Text style={styles.placeholderText}>
-            Your dream journal entries will be displayed here.
-          </Text>
-        </View>
+        <Text style={styles.title}>Journal</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write your journal entry here..."
+          placeholderTextColor={Colors.dark.subtext}
+          multiline
+          value={journalEntry}
+          onChangeText={setJournalEntry}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -28,6 +33,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    flex: 1,
   },
   title: {
     fontSize: 32,
@@ -35,18 +41,16 @@ const styles = StyleSheet.create({
     color: Colors.dark.text,
     marginBottom: 32,
   },
-  placeholderContainer: {
+  textInput: {
+    flex: 1,
     padding: 20,
     backgroundColor: '#1a1a1a',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#333',
-  },
-  placeholderText: {
+    color: Colors.dark.text,
     fontSize: 16,
-    color: Colors.dark.subtext,
-    textAlign: 'center',
     lineHeight: 24,
+    textAlignVertical: 'top',
   },
 });
-
