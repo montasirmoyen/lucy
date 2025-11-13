@@ -3,6 +3,8 @@ import { isOnboardingComplete } from '@/utils/storage';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts } from 'expo-font';
 
 export default function Index() {
   const router = useRouter();
@@ -28,11 +30,18 @@ export default function Index() {
     }
   };
 
-  if (isLoading) {
+  const [fontsLoaded] = useFonts({
+    'Font-Regular': require('../assets/fonts/Nunito/static/Nunito-Regular.ttf'),
+    'Font-Bold': require('../assets/fonts/Nunito/static/Nunito-Bold.ttf'),
+  });
+
+  if (isLoading || !fontsLoaded) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color={Colors.dark.tint} />
-      </View>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={Colors.dark.tint} />
+        </View>
+      </GestureHandlerRootView>
     );
   }
 
