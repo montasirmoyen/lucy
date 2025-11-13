@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderColor: '#333',
     color: Colors.dark.text,
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 25,
     textAlignVertical: 'top',
   },
 });
