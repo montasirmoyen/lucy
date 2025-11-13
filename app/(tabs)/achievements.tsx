@@ -10,7 +10,7 @@ export default function AchievementsScreen() {
         <Text style={styles.title}>Achievements</Text>
         <View style={styles.placeholderContainer}>
           <Text style={styles.placeholderText}>
-            Your achievements and progress will be displayed here.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Text>
         </View>
       </ScrollView>
