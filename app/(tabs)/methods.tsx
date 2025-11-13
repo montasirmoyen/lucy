@@ -2,8 +2,9 @@ import { Colors } from '@/constants/theme';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 
-type MethodKey = 'WILD' | 'MILD' | 'FILD' | 'ZILD' | null;
+type MethodKey = 'WILD' | 'MILD' | 'FILD' | 'ZILD' | 'DILD' | null;
 
 const methodDescriptions: Record<Exclude<MethodKey, null>, { title: string; content: string[] }> = {
   WILD: {
@@ -68,6 +69,21 @@ const methodDescriptions: Record<Exclude<MethodKey, null>, { title: string; cont
       'ZILD works best with consistency, journaling, and patience—it builds on your natural memory patterns.',
     ],
   },
+
+  DILD: {
+    title: 'DILD (Drawing-Induced Lucid Dream)',
+    content: [
+      'DILD uses your own drawing or visual creation as a “dream anchor,” helping you enter a scene you designed yourself and realize you’re dreaming.',
+      'The process links creativity, visualization, and intention, training your mind to re-create that image in a dream and trigger lucidity.',
+      'Steps:',
+      '1. Draw or paint a dream scene you’d love to visit—something detailed, calming, or meaningful to you.',
+      '2. Spend a few minutes studying your drawing before bed. Focus on the colors, shapes, and atmosphere, imagining yourself walking inside it.',
+      '3. Set your intention by thinking: “When I see this place in my dream, I’ll know I’m dreaming.”',
+      '4. Place the drawing under your pillow or beside your bed to keep it close to your subconscious focus.',
+      '5. As you fall asleep, keep visualizing the scene from your drawing until you drift off naturally.',
+      '6. If you find yourself in that place in your dream, remember your intention and perform a quick reality check to confirm lucidity.',
+    ],
+  },
 };
 
 export default function MethodsScreen() {
@@ -81,16 +97,25 @@ export default function MethodsScreen() {
       {Object.entries(methodDescriptions).map(([key, method]) => (
         <Pressable
           key={key}
-            onPress={() => setOpenMethod(key as MethodKey)}
-          style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+          onPress={() => setOpenMethod(key as MethodKey)}
+          style={({ pressed }) => [styles.cardContainer, pressed && styles.cardPressed]}
           accessibilityRole="button"
           accessibilityLabel={`Open ${key} method`}
         >
-          <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>{key}</Text>
-            <Text style={styles.chevron}>›</Text>
-          </View>
-          <Text style={styles.cardSummary}>{method.content[0]}</Text>
+          <LinearGradient
+            colors={['#6B46C1', '#3B82F6', '#6B46C1']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.cardGradient}
+          >
+            <View style={styles.card}>
+              <View style={styles.cardHeader}>
+                <Text style={styles.cardTitle}>{key}</Text>
+                <Text style={styles.chevron}>›</Text>
+              </View>
+              <Text style={styles.cardSummary}>{method.content[0]}</Text>
+            </View>
+          </LinearGradient>
         </Pressable>
       ))}
     </ScrollView>
@@ -133,32 +158,52 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    marginBottom: 50,
   },
   content: {
     padding: 20,
-    gap: 16,
+    gap: 20,
   },
   title: {
-    fontSize: 32,
+    fontSize: 20,
     fontWeight: '700',
     color: Colors.dark.text,
-    marginBottom: 4,
+    fontFamily: 'Font-Bold',
+    flexWrap: 'wrap',
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 15,
     color: Colors.dark.subtext,
-    marginBottom: 12,
+    fontFamily: 'Font-Regular',
+    lineHeight: 24,
+    flexWrap: 'wrap',
+    width: '100%',
+    flexShrink: 1,
+  },
+  cardContainer: {
+    borderRadius: 12,
+    marginBottom: 4,
+    shadowColor: '#6B46C1',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  cardGradient: {
+    borderRadius: 12,
+    padding: 2,
   },
   card: {
     padding: 16,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#333',
+    backgroundColor: '#0a0a0aff',
+    borderRadius: 10,
+    borderWidth: 0,
   },
   cardPressed: {
     opacity: 0.9,
     transform: [{ scale: 0.995 }],
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -167,18 +212,21 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   cardTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: Colors.dark.text,
+    fontFamily: 'Font-Bold',
   },
   chevron: {
     fontSize: 24,
     color: Colors.dark.subtext,
+    fontFamily: 'Font-Regular',
   },
   cardSummary: {
     fontSize: 14,
     color: Colors.dark.subtext,
     lineHeight: 20,
+    fontFamily: 'Font-Regular',
   },
   backBtn: {
     alignSelf: 'flex-start',
@@ -195,16 +243,19 @@ const styles = StyleSheet.create({
   backBtnText: {
     color: Colors.dark.text,
     fontSize: 16,
+    fontFamily: 'Font-Regular',
   },
   detailTitle: {
     fontSize: 24,
     fontWeight: '700',
     color: Colors.dark.text,
     marginTop: 8,
+    fontFamily: 'Font-Regular',
   },
   paragraph: {
     fontSize: 16,
     color: Colors.dark.subtext,
     lineHeight: 24,
+    fontFamily: 'Font-Regular',
   },
 });
