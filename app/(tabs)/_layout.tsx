@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { BlurView } from 'expo-blur';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -17,10 +18,20 @@ export default function TabLayout() {
         tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].tabIconDefault,
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarBackground: () => (
+          <BlurView
+            intensity={50}
+            tint="dark"
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            }}
+          />
+        ),
         tabBarStyle: {
-          backgroundColor: Colors.dark.background,
-          borderTopColor: '#333',
-          borderTopWidth: 1,
+          position: 'absolute',
+          borderTopWidth: 0,
+          elevation: 0,
         },
       }}>
       <Tabs.Screen
